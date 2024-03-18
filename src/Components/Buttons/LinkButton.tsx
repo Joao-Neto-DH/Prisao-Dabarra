@@ -8,7 +8,7 @@ function LinkButton({ children, className, ...others }: LinkProps) {
   return (
     <Link
       className={twMerge(
-        "w-full text-center text-white bg-blue-600 hover:bg-blue-500 transition-colors p-3 rounded",
+        "block w-full text-center text-white bg-blue-600 hover:bg-blue-500 transition-colors p-3 rounded",
         className
       )}
       {...others}
