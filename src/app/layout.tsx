@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navigation from "@/Components/Navigation";
+import Footer from "@/Components/Footer";
 
 export const metadata: Metadata = {
   title: "Prisão do Dabarra",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         <Navigation />
         {children}
+        <Footer />
       </body>
     </html>
   );

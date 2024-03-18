@@ -1,3 +1,4 @@
-import LoginScreen from "@/Screens/Login";
+import HomeScreen from "@/Screens/Home";
+// import LoginScreen from "@/Screens/Login";
 
-export default LoginScreen;
+export default HomeScreen;
