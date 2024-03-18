@@ -24,20 +24,6 @@ const index = React.forwardRef<HTMLInputElement, InputProps>(function (
   );
 });
 
-// function index({ className, label, name, ...others }: InputProps) {
-//   return (
-//     <label htmlFor={name} className="block">
-//       <p className="mb-2">{label}</p>
-//       <input
-//         type="text"
-//         name={name}
-//         id={name}
-//         className="w-full block p-3 border rounded"
-//         required
-//         {...others}
-//       />
-//     </label>
-//   );
-// }
+index.displayName = "Input";
 
 export default index;
