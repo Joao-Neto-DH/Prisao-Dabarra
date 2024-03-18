@@ -4,9 +4,13 @@ import { twMerge } from "tailwind-merge";
 
 interface ButtonProps extends ComponentPropsWithRef<"button"> {}
 
-function Button({ children, className, ...others }: ButtonProps) {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function (
+  { children, className, ...others },
+  ref
+) {
   return (
     <button
+      ref={ref}
       className={twMerge(
         "w-full text-center text-white bg-blue-600 hover:bg-blue-500 transition-colors p-3 rounded",
         className
@@ -16,7 +20,7 @@ function Button({ children, className, ...others }: ButtonProps) {
       {children}
     </button>
   );
-}
+});
 
 export default Button;
 export { LinkButton };
