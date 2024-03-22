@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="pt">
       <body>
         <Navigation />
-        {children}
+        <div className="relative">{children}</div>
         <Footer />
       </body>
     </html>

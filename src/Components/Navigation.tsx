@@ -16,6 +16,10 @@ const navs: { name: string; path: string }[] = [
     name: "Transferências",
     path: "/transferencia",
   },
+  {
+    name: "Prisioneiros",
+    path: "/prisioneiros",
+  },
 ];
 
 function Navigation() {
