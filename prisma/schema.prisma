@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Criminoso {
+  id                 String              @id @default(uuid())
+  nome               String
+  bi                 String              @unique
+  nacionalidade      String
+  provincia          String
+  data_nascimento    DateTime
+  genero             String
+  imagem             String?
+  historico_criminal HistoricoCriminal[]
+}
+
+model HistoricoCriminal {
+  id                 String         @id @default(uuid())
+  crime              String
+  data_ocorrencia    DateTime
+  data_detencao      DateTime
+  data_transferencia DateTime?
+  criminoso          Criminoso      @relation(fields: [criminosoId], references: [id])
+  criminosoId        String
+  transferencia      Transferencia?
+}
+
+model Transferencia {
+  id                  String            @id @default(uuid())
+  historico           HistoricoCriminal @relation(fields: [historicoCriminalId], references: [id])
+  historicoCriminalId String            @unique
+}
