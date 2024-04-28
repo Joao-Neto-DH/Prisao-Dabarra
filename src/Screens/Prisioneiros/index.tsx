@@ -1,34 +1,16 @@
 "use client";
 
 import BodyScreen from "@/Components/BodyScreen";
-import Button from "@/Components/Buttons";
 import Input from "@/Components/Input";
 import Loader from "@/Components/Loader";
 import Image from "next/image";
 import Link from "next/link";
 import ModalFiltro from "./ModalFiltro";
 import ModalCadastro from "./ModalCadastro";
-import { useEffect, useState } from "react";
-import CriminosoController, {
-  TCriminoso,
-} from "@/controllers/frontend/Criminoso";
+import { useGetPrisioneiros } from "@/hooks/prisioneiros/use-get-prisioneiros";
 
 function PrisioneiroScreen() {
-  const [criminosos, setCriminosos] = useState<TCriminoso[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function criminosos() {
-      setLoading(true);
-      const controller = new CriminosoController();
-      const result = await controller.obterTodos({ page: 1 });
-
-      setCriminosos((prev) => [...prev, ...result]);
-      setLoading(false);
-    }
-
-    criminosos();
-  }, []);
+  const { criminosos, loading } = useGetPrisioneiros({ page: 1 });
   return (
     <>
       <div className="flex items-center border-b p-4">
