@@ -1,5 +1,20 @@
 import { Criminoso, TCriminosoFilter } from "@/services/models/Criminoso";
 
+export type TCriminoso = {
+  id: string;
+  nome: string;
+  bi: string;
+  nacionalidade: string;
+  provincia: string;
+  data_nascimento: string;
+  genero: string;
+  imagem: string | null;
+  _count: {
+    historico_criminal: number;
+  };
+  historico_criminal: any[];
+};
+
 class CriminosoController {
   private static readonly url = "/api/criminoso";
   async salvar(criminoso: Criminoso): Promise<Criminoso> {
@@ -32,7 +47,7 @@ class CriminosoController {
     return data;
   }
 
-  async obterTodos(filtro: Partial<TCriminosoFilter>) {
+  async obterTodos(filtro: Partial<TCriminosoFilter>): Promise<TCriminoso[]> {
     const searchParams = new URLSearchParams();
 
     Object.entries(filtro).forEach((entry) => {

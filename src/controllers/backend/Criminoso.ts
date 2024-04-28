@@ -7,7 +7,7 @@ class CriminosoController {
   async salvar(data: Criminoso): Promise<Criminoso> {
     if (
       isEmptyString(data.bi) ||
-      isEmptyString(data.data_nascimento) ||
+      isEmptyString(new Date(data.data_nascimento).toDateString()) ||
       isEmptyString(data.genero) ||
       isEmptyString(data.nacionalidade) ||
       isEmptyString(data.nome) ||

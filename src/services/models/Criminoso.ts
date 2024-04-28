@@ -72,7 +72,7 @@ class CriminosoModel implements IModel<Criminoso> {
    * obterTodos
    */
   public async obterTodos({
-    page = 0,
+    page = 1,
     data_crime_ocorrido,
     data_crime_prisao,
     nome,
@@ -80,20 +80,17 @@ class CriminosoModel implements IModel<Criminoso> {
     try {
       const data = await this.conexao.getDB().criminoso.findMany({
         take: CRIMINOSO_POR_PAGINA,
-        skip: page + 1,
+        skip: (page - 1) * CRIMINOSO_POR_PAGINA,
         include: { _count: true, historico_criminal: true },
         where: {
-          AND: {
-            nome,
-            historico_criminal: {
-              some: {
-                AND: {
-                  data_ocorrencia: data_crime_ocorrido,
-                  data_detencao: data_crime_prisao,
-                },
-              },
-            },
-          },
+          nome,
+
+          // historico_criminal: {
+          //   some: {
+          //     data_ocorrencia: data_crime_ocorrido,
+          //     data_detencao: data_crime_prisao,
+          //   },
+          // },
         },
       });
 

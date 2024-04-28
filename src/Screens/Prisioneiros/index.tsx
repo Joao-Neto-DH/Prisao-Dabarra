@@ -7,8 +7,28 @@ import Loader from "@/Components/Loader";
 import Image from "next/image";
 import Link from "next/link";
 import ModalFiltro from "./ModalFiltro";
+import ModalCadastro from "./ModalCadastro";
+import { useEffect, useState } from "react";
+import CriminosoController, {
+  TCriminoso,
+} from "@/controllers/frontend/Criminoso";
 
 function PrisioneiroScreen() {
+  const [criminosos, setCriminosos] = useState<TCriminoso[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function criminosos() {
+      setLoading(true);
+      const controller = new CriminosoController();
+      const result = await controller.obterTodos({ page: 1 });
+
+      setCriminosos((prev) => [...prev, ...result]);
+      setLoading(false);
+    }
+
+    criminosos();
+  }, []);
   return (
     <>
       <div className="flex items-center border-b p-4">
@@ -34,36 +54,40 @@ function PrisioneiroScreen() {
           </form>
           <ModalFiltro />
         </div>
-        <Button className="w-auto ml-auto text-sm py-1 px-2">
-          Cadastrar prisioneiro
-        </Button>
+        <ModalCadastro />
       </div>
       <BodyScreen>
         <div className="grid md:grid-cols-5 gap-3">
-          {new Array(10).fill("").map((_, idx) => (
-            <div key={idx} className="">
-              <Link href={`/transferencia?prisioneiro=55`}>
-                <Image
-                  src={"https://placehold.co/240"}
-                  alt="240x240"
-                  width={240}
-                  height={240}
-                  loading="lazy"
-                  className="rounded-t"
-                />
-              </Link>
+          {loading && <Loader />}
+          {!loading &&
+            criminosos.map((criminoso) => (
+              <div key={criminoso.id} className="">
+                <Link href={`/transferencia?prisioneiro=${criminoso.id}`}>
+                  <Image
+                    src={"https://placehold.co/240"}
+                    alt="240x240"
+                    width={240}
+                    height={240}
+                    loading="lazy"
+                    className="rounded-t"
+                  />
+                </Link>
 
-              <Link
-                href={`/transferencia?prisioneiro=55`}
-                className="font-bold text-lg text-center mt-2 block"
-              >
-                João Baptista
-              </Link>
-              <p className="mt-1 text-center">
-                Idade: <span className="font-bold text-sm">23</span>
-              </p>
-            </div>
-          ))}
+                <Link
+                  href={`/transferencia?prisioneiro=${criminoso.id}`}
+                  className="font-bold text-lg text-center mt-2 block"
+                >
+                  {criminoso.nome}
+                </Link>
+                <p className="mt-1 text-center">
+                  Idade:{" "}
+                  <span className="font-bold text-sm">
+                    {new Date().getFullYear() -
+                      new Date(criminoso.data_nascimento).getFullYear()}
+                  </span>
+                </p>
+              </div>
+            ))}
         </div>
       </BodyScreen>
     </>
