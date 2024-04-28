@@ -1,7 +1,7 @@
 import { AppError } from "@/errors";
 import { isEmptyString } from "@/lib/utils";
 import { criminosoModel } from "@/services/models";
-import { Criminoso } from "@/services/models/Criminoso";
+import { Criminoso, TCriminosoFilter } from "@/services/models/Criminoso";
 
 class CriminosoController {
   async salvar(data: Criminoso): Promise<Criminoso> {
@@ -44,6 +44,17 @@ class CriminosoController {
     }
 
     return await criminosoModel.actualizar(data);
+  }
+
+  async obterTodos(filtro: Partial<TCriminosoFilter>) {
+    return await criminosoModel.obterTodos(filtro);
+  }
+
+  async obter(id: string) {
+    if (isEmptyString(id)) {
+      throw new AppError("id não pode estar vazio");
+    }
+    return await criminosoModel.obter(id);
   }
 
   async apagar(data: string): Promise<Criminoso> {

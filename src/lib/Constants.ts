@@ -1,0 +1,3 @@
+const CRIMINOSO_POR_PAGINA = 10;
+
+export { CRIMINOSO_POR_PAGINA };
