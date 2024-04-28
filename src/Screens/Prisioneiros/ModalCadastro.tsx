@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/Components/ui/dialog";
-import { cadastrarCriminoso } from "@/action/cadastrar-criminoso";
+import { cadastrarCriminoso } from "@/actions/cadastrar-criminoso";
 import { isEmptyString } from "@/lib/utils";
 import { useRef, useState } from "react";
 import { useFormStatus } from "react-dom";

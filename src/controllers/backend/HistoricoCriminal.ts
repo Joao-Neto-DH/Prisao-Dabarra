@@ -8,8 +8,8 @@ class HistoricoCriminalController {
     if (
       isEmptyString(data.crime) ||
       isEmptyString(data.criminosoId) ||
-      isEmptyString(data.data_detencao) ||
-      isEmptyString(data.data_ocorrencia)
+      isEmptyString(new Date(data.data_detencao).toDateString()) ||
+      isEmptyString(new Date(data.data_ocorrencia).toDateString())
       // isEmptyString(data.data_transferencia)
     ) {
       throw new AppError(

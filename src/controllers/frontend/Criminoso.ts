@@ -12,7 +12,14 @@ export type TCriminoso = {
   _count: {
     historico_criminal: number;
   };
-  historico_criminal: any[];
+  historico_criminal: {
+    id: string;
+    crime: string;
+    data_ocorrencia: string;
+    data_detencao: string;
+    data_transferencia: string;
+    criminosoId: string;
+  }[];
 };
 
 class CriminosoController {

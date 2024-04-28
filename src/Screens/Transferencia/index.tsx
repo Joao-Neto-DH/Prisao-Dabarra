@@ -4,9 +4,11 @@ import BodyScreen from "@/Components/BodyScreen";
 import Button from "@/Components/Buttons";
 import { useGetPrisioneiro } from "@/hooks/prisioneiros/use-get-prisioneiro";
 import { useGetPrisioneiros } from "@/hooks/prisioneiros/use-get-prisioneiros";
-import { format } from "date-fns/format";
+import { format, formatDate } from "date-fns/format";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import ModalCadastrarHistoricoCriminal from "./ModalCadastrarHistoricoCriminal";
+import Loader from "@/Components/Loader";
 
 function TransferenciaScreen() {
   const { criminosos } = useGetPrisioneiros({ page: 1 });
@@ -16,6 +18,10 @@ function TransferenciaScreen() {
   const { prisioneiro, setPrisioneiroID, loading } = useGetPrisioneiro(
     searchParams.get("prisioneiro")!
   );
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex">
@@ -109,26 +115,30 @@ function TransferenciaScreen() {
                 </tbody>
               </table>
               <hr className="my-6" />
-              <p className="font-bold text-xl mb-3">Histórico criminal</p>
+              <div className="flex flex-row items-center">
+                <p className="font-bold text-xl mb-3">Histórico criminal</p>
+                <ModalCadastrarHistoricoCriminal />
+              </div>
               <table>
                 <thead>
                   <tr>
                     <th className="p-2 text-left">Crime</th>
                     <th className="p-2 text-left">Data de ocorrência</th>
-                    <th className="p-2 text-left">Data de entrada</th>
+                    <th className="p-2 text-left">Data de prisão</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="even:bg-gray-200">
-                    <td className="p-2">Assalto a mão armada</td>
-                    <td className="p-2">18/02/2024</td>
-                    <td className="p-2">18/03/2024</td>
-                  </tr>
-                  <tr className="even:bg-gray-200">
-                    <td className="p-2">Assalto a mão armada</td>
-                    <td className="p-2">18/02/2024</td>
-                    <td className="p-2">18/03/2024</td>
-                  </tr>
+                  {prisioneiro.historico_criminal.map((historico) => (
+                    <tr key={historico.id} className="even:bg-gray-200">
+                      <td className="p-2">{historico.crime}</td>
+                      <td className="p-2">
+                        {formatDate(historico.data_ocorrencia, "dd/mm/yyyy")}
+                      </td>
+                      <td className="p-2">
+                        {formatDate(historico.data_detencao, "dd/mm/yyyy")}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
