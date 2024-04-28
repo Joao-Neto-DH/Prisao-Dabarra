@@ -12,10 +12,10 @@ const navs: { name: string; path: string }[] = [
     name: "Agentes",
     path: "/agentes",
   },
-  {
-    name: "Transferências",
-    path: "/transferencia",
-  },
+  // {
+  //   name: "Transferências",
+  //   path: "/transferencia",
+  // },
   {
     name: "Prisioneiros",
     path: "/prisioneiros",
@@ -25,7 +25,7 @@ const navs: { name: string; path: string }[] = [
 function Navigation() {
   const pathname = usePathname();
   return (
-    <div className="p-4 flex items-center border-b sticky top-0 z-50">
+    <div className="p-4 flex items-center border-b sticky top-0 z-50 bg-white">
       <div className="">
         <p className="text-xl font-bold">Esquadra 47</p>
         <p className="text-xs text-gray-400">São Pedro da Barra</p>
